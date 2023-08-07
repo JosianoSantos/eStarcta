@@ -1,4 +1,6 @@
-Como uma melhoria á o teste solicitado, foi unificado a tarefa de frontend e backend, fazendo uma integração entre as
+### Teste de Frontend e Backend 
+
+Como uma melhoria ao teste solicitado, foi unificado a tarefa de frontend e backend, fazendo uma integração entre as
 funcionalidades:
 
 No frontend, há um CRUD de empresas, com paginação, busca e ordenação, que por sua vez, consome a API onde há os
