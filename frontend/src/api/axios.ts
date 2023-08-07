@@ -8,7 +8,6 @@ const instance = axios.create({
 instance.interceptors.response.use(
   (response) => response,
   (error) => {
-    debugger
     if (error?.message?.includes('status code 401')) {
       localStorage.removeItem('token')
       Router.replace('/login');

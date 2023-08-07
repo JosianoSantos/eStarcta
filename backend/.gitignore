@@ -9,8 +9,6 @@
 *~
 \#*
 
-htmlcov/
-src/.coverage
 virtualenv/
 venv/
 env/
@@ -21,7 +19,6 @@ staticfiles/
 
 # Python compiled byte code
 *.pyc
-
 
 # static validation files
 .eslintrc

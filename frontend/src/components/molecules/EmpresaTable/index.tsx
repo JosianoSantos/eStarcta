@@ -1,24 +1,7 @@
-import React, { useState, useEffect } from 'react';
-
 import { Table, Input, Select, Button } from 'antd';
 
 const { Column } = Table;
 const { Option } = Select;
-
-
-interface Empresa {
-  id: number;
-  CNPJ: string;
-  razao_social: string;
-  nome_fantasia: string;
-  CNAE_principal: string;
-}
-
-
-interface Pagination {
-  next: number;
-  previous: number;
-}
 
 
 interface TableMoleculeProps {
@@ -103,6 +86,7 @@ export const EmpresaTable: React.FC<TableMoleculeProps> = ({
     </Table>
 
     <div>
+      <br />
       {pagination && (
         <div>
           <Button
@@ -111,7 +95,7 @@ export const EmpresaTable: React.FC<TableMoleculeProps> = ({
           >
             Anterior
           </Button>
-          <span> Página {currentPage} </span>
+          <span> Página {searchQuery ? 1 : currentPage} </span>
           <Button
             onClick={() => setCurrentPage(currentPage + 1)}
             disabled={!pagination.next}

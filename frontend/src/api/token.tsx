@@ -3,25 +3,26 @@ import api from './api';
 
 const loginRequired = (fn: (...args: any[]) => Promise<any>) => async (...args: any[]) => {
 
-    try {
-        let token = localStorage.getItem('token');
+    let token = localStorage.getItem('access');
 
-        if (!token) {
-            const refreshToken = localStorage.getItem('refreshToken');
-            if (refreshToken) {
-                const response = await api.users.refreshToken({ refreshToken });
-                token = response.data.access;
-                localStorage.setItem('token', token ?? '');
-            }
+    if (!token || token == '') {
+        const refreshToken = localStorage.getItem('refresh');
+        if (refreshToken) {
+            const response = await api.users.refreshToken({ refreshToken });
+            token = response.data.access;
+            localStorage.setItem('token', token ?? '');
+        } else {
+            localStorage.removeItem('token');
         }
-
-        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-
-        const response = await fn(...args);
-        return response;
-    } catch (error) {
-        throw error;
     }
+
+    if (token || token === '') {
+        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    }
+
+    const response = await fn(...args);
+    return response;
+
 };
 
 export default loginRequired;

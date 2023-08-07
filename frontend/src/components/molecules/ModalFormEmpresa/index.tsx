@@ -6,7 +6,7 @@ import InputMask from 'react-input-mask';
 interface ModalFormEmpresaProps {
     modalMode: 'create' | 'update' | undefined;
     modalVisible: boolean;
-    setModalVisible: (visible: boolean) => void;
+    setModalVisible: () => void;
     handleModalOk: () => void;
     handleModalCancel: () => void;
     form: any;

@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Modal, Form, message } from 'antd';
+import { Modal, Form, message } from 'antd';
 import ModalFormEmpresa from '@/components/molecules/ModalFormEmpresa';
 import EmpresaTable from '@/components/molecules/EmpresaTable';
 
 import api from '@/api/api'
 import LinearGradientButton from '@/components/atoms/LinearGradientButton';
+import { useRouter } from 'next/router';
 
 
 interface Empresa {
@@ -27,7 +28,13 @@ const EmpresaContainer: React.FC = () => {
     const [limit, setLimit] = useState<number>(25);
     const [form] = Form.useForm();
 
+    const router = useRouter();
+
+
     useEffect(() => {
+        if (!localStorage.getItem('access')) {
+            router.push('/login');
+        }
         fetchData();
     }, [ordering, currentPage, searchQuery, limit]);
 
@@ -35,7 +42,7 @@ const EmpresaContainer: React.FC = () => {
 
         api.empresa.getEmpresas(
             {
-                page: currentPage,
+                page: searchQuery ? 1 : currentPage,
                 ordering,
                 search: searchQuery,
                 limit: limit,
@@ -64,7 +71,7 @@ const EmpresaContainer: React.FC = () => {
 
     const handleDelete = async (empresa: Empresa) => {
         try {
-            api.empresa.delete(empresa.CNPJ).then(() => {
+            api.empresa.delete(empresa.CNPJ.replaceAll('.', '').replaceAll('/', '').replaceAll('-', '')).then(() => {
                 message.success('Empresa excluída com sucesso.')
                 fetchData();
             });
@@ -76,14 +83,15 @@ const EmpresaContainer: React.FC = () => {
 
     const handleModalOk = async () => {
 
-        const values = await form.validateFields();
+        let values = await form.validateFields();
+        values.CNPJ = values.CNPJ.replaceAll('.', '').replaceAll('/', '').replaceAll('-', '');
+
         if (modalMode === 'create') {
 
             api.empresa.create(values,).then(() => {
                 message.success('Empesa cadastrada com sucesso!')
                 reloadData();
             }).catch((e) => {
-                debugger
                 try {
                     let errorMessage: string = "";
                     const errors = e.response.data;
@@ -102,7 +110,7 @@ const EmpresaContainer: React.FC = () => {
 
         } else if (modalMode === 'update' && selectedEmpresa) {
 
-            api.empresa.update(selectedEmpresa.CNPJ, values).then(() => {
+            api.empresa.update(selectedEmpresa.CNPJ.replaceAll('.', '').replaceAll('/', '').replaceAll('-', ''), values).then(() => {
                 message.success(`${selectedEmpresa.nome_fantasia} atualizada com sucesso!`)
                 reloadData();
             }).catch(() => {

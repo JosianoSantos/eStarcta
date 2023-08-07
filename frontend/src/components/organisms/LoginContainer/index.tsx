@@ -25,18 +25,20 @@ const LoginContainer = () => {
         password
       }).then((res) => {
         if (res?.status === 200) {
-          localStorage.setItem('token', res.data.access)
+          localStorage.setItem('access', res.data.access)
           localStorage.setItem('refresh', res.data.refresh)
           router.push('/');
         } else {
-          message.error('Erro ao realizar o login.');
+          message.error('Erro ao realizar o login, revise os dados');
         }
+      }).catch(() =>{
+        message.error('Erro ao realizar o login, revise os dados');
       });
     }
   };
 
   useEffect(() => {
-    if (localStorage.getItem('token')) {
+    if (localStorage.getItem('access')) {
       router.push('/');
     }
   }, [router]);

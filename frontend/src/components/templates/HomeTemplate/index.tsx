@@ -1,7 +1,7 @@
 import React from 'react';
 import HomeHeader from '@/components/molecules/HomeHeader';
-import { Container } from '@mui/material';
 import EmpresaContainer from '@/components/organisms/EmpresaContainer';
+import { Container } from './styles';
 
 const HomeTemplate = () => {
   return (

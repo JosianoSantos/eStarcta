@@ -5,13 +5,14 @@ from lib.pagination import CustomPagination
 from lib.mixins import MultipleSerializerClassMixin
 
 from .models import Empresa
-from .serializers import EmpresaSerializer, EmpresaUpdateSerializer
+from .serializers import EmpresaSerializer, EmpresaUpdateSerializer, EmpresaListSerializer
 
 
 class EmpresaViewSet(MultipleSerializerClassMixin, viewsets.ModelViewSet):
     queryset = Empresa.objects.all()
     serializer_class = EmpresaSerializer
     serializer_action_classes = {
+        'list': EmpresaListSerializer,
         'update': EmpresaUpdateSerializer,
         'partial_update': EmpresaUpdateSerializer,
     }
