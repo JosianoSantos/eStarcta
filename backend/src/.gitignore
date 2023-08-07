@@ -1,0 +1,41 @@
+
+# IDEs
+.project
+.pydevproject
+.idea
+.vscode
+.settings
+
+# Random files
+*~
+\#*
+
+virtualenv/
+htmlcov/
+# django/static_dist/
+# django/static_root/
+staticfiles/
+
+
+# Python compiled byte code
+*.pyc
+
+# SQLite3 database
+*.sqlite
+
+# static validation files
+.eslintrc
+.sass-lint.yml
+.prospector.yml
+
+
+.env
+.develop.env
+.DS_Store
+
+.ipynb_checkpoints/
+
+**/*venv/
+.python-version
+**/dump*.json
+.Trash-*

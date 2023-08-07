@@ -1,0 +1,29 @@
+# IDEs
+.project
+.pydevproject
+.idea
+.vscode
+.settings
+
+# Random files
+*~
+\#*
+
+htmlcov/
+src/.coverage
+virtualenv/
+venv/
+env/
+# django/static_dist/
+# django/static_root/
+staticfiles/
+
+
+# Python compiled byte code
+*.pyc
+
+
+# static validation files
+.eslintrc
+.sass-lint.yml
+.prospector.yml
